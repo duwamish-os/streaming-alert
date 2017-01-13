@@ -15,10 +15,9 @@ import scala.collection.JavaConverters._
   * on 1/12/17.
   */
 
-class EventNotifier(regex: String, toChannel: String) extends Interceptor {
+class EventNotifier(regex: String, toChannel: String, secretKey: String) extends Interceptor {
 
-  val config = ConfigFactory.load()
-  val s = new SlackClient(config.getString("api.key"))
+  val s = new SlackClient(secretKey)
 
   override def initialize(): Unit = {}
 

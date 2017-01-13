@@ -1,5 +1,6 @@
 package com.flume.channel
 
+import com.typesafe.config.ConfigFactory
 import org.apache.flume.event.JSONEvent
 
 /**
@@ -10,7 +11,7 @@ import org.apache.flume.event.JSONEvent
 class EventNotifierSpecs extends org.scalatest.FunSuite {
 
   test("sends slack message if matches the regex") {
-    val eventNotifier = new EventNotifier(".*error.*", "#test-bytecode")
+    val eventNotifier = new EventNotifier(".*error.*", "#test-bytecode", ConfigFactory.load().getString("api.key"))
 
     val event = new JSONEvent
     event.setBody("{\"message\":\"error\"}".stripMargin.trim.getBytes())
@@ -19,7 +20,7 @@ class EventNotifierSpecs extends org.scalatest.FunSuite {
   }
 
   test("does not send slack message if event does not match the regex") {
-    val eventNotifier = new EventNotifier(".*dreams.*", "#test-bytecode")
+    val eventNotifier = new EventNotifier(".*dreams.*", "#test-bytecode", ConfigFactory.load().getString("api.key"))
 
     val event = new JSONEvent
     event.setBody(

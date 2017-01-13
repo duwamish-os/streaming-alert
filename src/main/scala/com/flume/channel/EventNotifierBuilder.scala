@@ -12,8 +12,9 @@ class EventNotifierBuilder extends Interceptor.Builder {
 
   var regex : String = ""
   var toChannel : String = ""
+  var secretKey : String = ""
 
-  override def build(): Interceptor = new EventNotifier(regex, toChannel)
+  override def build(): Interceptor = new EventNotifier(regex, toChannel, secretKey)
 
   override def configure(context: Context): Unit = {
     regex = context.getString("regex", ".*")

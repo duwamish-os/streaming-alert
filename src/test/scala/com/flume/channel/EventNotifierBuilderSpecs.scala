@@ -21,4 +21,13 @@ class EventNotifierBuilderSpecs extends FunSuite {
     assert(eventNotifierBuilder.regex == ".*error.*")
     assert(eventNotifierBuilder.toChannel == "to-channel")
   }
+
+  test("sets secretKey") {
+    val context = new Context
+    context.put("secretKey", "secretKey")
+
+    eventNotifierBuilder.configure(context)
+
+    assert(eventNotifierBuilder.secretKey == "secretKey")
+  }
 }
